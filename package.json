@@ -15,7 +15,12 @@
         "prettier": "^3.2.5",
         "prettier-plugin-svelte": "^3.2.2",
         "purecss": "^3.0.0",
+        "svelt-yjs": "^1.1.0",
         "svelte": "^4.2.12",
-        "vite": "^5.2.0"
+        "vite": "^5.2.0",
+        "y-indexeddb": "^9.0.12",
+        "y-webrtc": "^10.3.0",
+        "yaml": "^2.4.1",
+        "yjs": "^13.6.14"
     }
 }

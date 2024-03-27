@@ -1,0 +1,185 @@
+---
+Market:
+  scenes:
+    - BACK_ALLEY_HOUSE
+    - BACK_ALLEY_HOUSE2
+    - BAZAAR
+    - BOMBCHU_BOWLING_ALLEY
+    - BOMBCHU_SHOP
+    - MARKET_CHILD_DAY
+    - MARKET_POTION_SHOP
+    - GUARD_HOUSE
+    - TREASURE_SHOP
+  checks:
+    - ^Shooting Gallery Child
+Hyrule/Ganon's Castle Exterior:
+  scenes:
+    - CASTLE_COURTYARD
+    - GANON_CASTLE_EXTERIOR
+    - HYRULE_CASTLE
+  checks:
+    - ^Great Fairy Din's Fire
+    - ^Great Fairy Defense Upgrade
+    - ^Hatch Chicken
+Kakariko Village:
+  scenes:
+    - KAKARIKO_POTION_SHOP
+    - KAKARIKO_VILLAGE
+    - IMPA_HOUSE
+    - HOUSE_OF_SKULLTULA
+  checks:
+    - Hatch Pocket Cucco
+    - Kakariko Grotto
+    - Shooting Gallery Adult
+    - Windmill
+Graveyard:
+  scenes:
+    - GRAVEYARD
+    - TOMB_FAIRY
+    - TOMB_REDEAD
+    - TOMB_ROYAL
+  checks:
+    - ^Graveyard Dampe
+Kokiri Forest:
+  scenes:
+    - KOKIRI_FOREST
+    - KOKIRI_KNOW_IT_ALL
+    - KOKIRI_MIDO
+    - KOKIRI_SARIA
+    - KOKIRI_TWINS
+    - LINK_HOUSE
+  checks:
+    - ^Kokiri Forest Storms Grotto
+Lost Woods:
+  scenes:
+    - LOST_WOODS
+  checks:
+    - ^Lost Woods Grotto
+    - ^Deku Theater
+Hyrule Field:
+  scenes:
+    - HYRULE_FIELD
+  checks:
+    - ^Hyrule Field Fairy Fountain Fairy [0-9]+
+    - ^Hyrule Field.*Grotto
+Death Mountain Trail:
+  scenes:
+    - DEATH_MOUNTAIN_TRAIL
+  checks:
+    - ^Great Fairy Magic Upgrade$
+    - ^Death Mountain Trail.*Grotto
+Goron City:
+  scenes:
+    - GORON_CITY
+  checks:
+    - ^Goron City Grotto
+Bottom of the Well:
+  scenes:
+    - BOTTOM_OF_THE_WELL
+Death Mountain Crater:
+  scenes:
+    - DEATH_MOUNTAIN_CRATER
+  checks:
+    - ^Great Fairy Magic Upgrade 2
+    - ^Death Mountain Crater Grotto
+Gerudo Valley:
+  scenes:
+    - GERUDO_VALLEY
+  checks:
+    - ^Gerudo Valley.*Grotto
+Gerudo Fortress:
+  scenes:
+    - GERUDO_FORTRESS
+    - THIEVES_HIDEOUT
+  checks:
+    - ^Gerudo Fortress Fairy Fountain Fairy [0-9]+
+Gerudo Training Ground:
+  scenes:
+    - GERUDO_TRAINING_GROUND
+Lon Lon Ranch:
+  scenes:
+    - LON_LON_RANCH
+    - RANCH_HOUSE_SILO
+  checks:
+    - ^Lon Lon Ranch Grotto
+Desert Colossus:
+  scenes:
+    - DESERT_COLOSSUS
+  checks:
+    - ^Great Fairy Nayru's Love
+    - ^Desert Colossus Grotto
+Lake Hylia:
+  scenes:
+    - FISHING_POND
+    - LAKE_HYLIA
+    - LABORATORY
+  checks:
+    - ^Lake Hylia Grotto
+Deku Tree:
+  scenes:
+    - INSIDE_DEKU_TREE
+    - LAIR_GOHMA
+Dodongo's Cavern:
+  scenes:
+    - DODONGO_CAVERN
+    - LAIR_KING_DODONGO
+Jabu Jabu's Belly:
+  scenes:
+    - INSIDE_JABU_JABU
+    - LAIR_BARINADE
+Ice Cavern:
+  scenes:
+    - ICE_CAVERN
+Forest Temple:
+  scenes:
+    - TEMPLE_FOREST
+    - LAIR_PHANTOM_GANON
+Fire Temple:
+  scenes:
+    - TEMPLE_FIRE
+    - LAIR_VOLVAGIA
+Water Temple:
+  scenes:
+    - TEMPLE_WATER
+    - LAIR_MORPHA
+Shadow Temple:
+  scenes:
+    - TEMPLE_SHADOW
+    - LAIR_BONGO_BONGO
+Sprit Temple:
+  scenes:
+    - TEMPLE_SPIRIT
+    - LAIR_TWINROVA
+Haunted Wasteland:
+  scenes:
+    - HAUNTED_WASTELAND
+Sacred Forest Meadow:
+  scenes:
+    - SACRED_FOREST_MEADOW
+  checks:
+    - ^Sacred Meadow Fairy Fountain Fairy [0-9]+
+    - ^Sacred Meadow.*Grotto
+Zora's River:
+  scenes:
+    - ZORA_RIVER
+  checks:
+    - ^Zora River Fairy Fountain Fairy [0-9]+
+    - ^Zora River.*Grotto
+Zora's Domain:
+  scenes:
+    - ZORA_DOMAIN
+    - ZORA_SHOP
+  checks:
+    - ^Zora Domain Fairy Fountain Fairy [0-9]+
+Zora's Fountain:
+  scenes:
+    - ZORA_FOUNTAIN
+  checks:
+    - ^Great Fairy Farore's Wind
+Temple of Time:
+  scenes:
+    - TEMPLE_OF_TIME
+Ganon's Castle:
+  scenes:
+    - INSIDE_GANON_CASTLE
+    - GANON_TOWER
