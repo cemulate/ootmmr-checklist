@@ -48,13 +48,4 @@
 </main>
 
 <style>
-  .check-group-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    * {
-      flex-shrink: 1;
-    }
-  }
 </style>

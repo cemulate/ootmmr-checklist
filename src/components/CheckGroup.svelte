@@ -4,22 +4,26 @@
 </script>
 
 <div class="check-group">
-  <div class="header">
-    <p><strong>{name}</strong></p>
+  <div class="header"><strong>{name}</strong></div>
+  <div class="checks-container">
+    <slot></slot>
   </div>
-  <table class="pure-table pure-table-horizontal">
-    <tbody>
-      <slot></slot>
-    </tbody>
-  </table>
 </div>
 
 <style>
-  .header {
+  .check-group {
+    margin: 10px;
     border: 1px solid gray;
-
-    p {
-      margin: 2px 0 2px 0;
-    }
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .header {
+    padding: 10px;
+    background: lightgray;
+    border-bottom: 1px solid gray;
+  }
+  .checks-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(350px, 25%), 1fr));
   }
 </style>

@@ -10,18 +10,46 @@
   const toggle = event => {
     dispatch('toggle', { state: event.target.checked });
   };
+
+  const typeIcons = {
+    'chest': '',
+    'collectible': '',
+    'cow': '🐮',
+    'fairy': '🧚',
+    'fairy_spot': '🧚',
+    'fish': '🐟',
+    'grass': '',
+    'gs': '🕸️',
+    'heart': '♥️',
+    'npc': '🧑',
+    'pot': '',
+    'rupee': '',
+    'scrub': '',
+    'shop': '',
+    'sr': '',
+  };
+
 </script>
 
-<tr class="thin">
-  <td>{type}</td>
-  <td class:crossed-out={checked}>{name}</td>
-  <td><input type="checkbox" bind:checked on:change={toggle} /></td>
-</tr>
+<div class="check-item">
+  <span>{typeIcons[type]}</span>
+  <span class:crossed-out={checked}>{name}</span>
+  <input type="checkbox" checked={checked} on:change={toggle}>
+</div>
 
 <style>
-  tr.thin {
-    line-height: 0;
-    font-size: 0.9em;
+  .check-item {
+    border: 1px solid #aaaaaa;
+    border-radius: 4px;
+    padding: 5px;
+    margin: 2px;
+
+    display: inline-flex;
+    flex-direction: row;
+
+    span:nth-child(2) {
+      margin-right: auto;
+    }
   }
   .crossed-out {
     text-decoration-line: line-through;
