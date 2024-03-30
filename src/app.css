@@ -1,0 +1,16 @@
+section.section {
+    margin-bottom: 10px;
+}
+
+.interactable:hover {
+    color: hsl(229deg, 53%, 53%);
+    cursor: pointer;
+}
+
+h1.custom-title {
+    color: #777;
+    border-bottom: 1px solid #777;
+    font-style: italic;
+    font-weight: normal;
+    width: 100%;
+}

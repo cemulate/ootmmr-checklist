@@ -1,5 +1,4 @@
-import * as Y from 'yjs';
-import structuredChecksUrl from '../data/dist/structured-checks.json?url';
+import structuredChecksUrl from '../data/dist/structured-checks-lite.json?url';
 
 export async function initializeStructuredChecks() {
     const response = await fetch(structuredChecksUrl);
