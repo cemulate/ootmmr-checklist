@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import * as Y from 'yjs';
   import { readableArray, readableMap } from 'svelt-yjs';
   import { WebrtcProvider } from 'y-webrtc';
