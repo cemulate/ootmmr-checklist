@@ -32,6 +32,7 @@ export type RawPoolData = {
 };
 
 export interface GroupingEntry {
+    canBeMq?: boolean;
     checkNamePrefix?: string;
     scenes: string[];
     checks: string[];
@@ -56,7 +57,6 @@ export enum Tag {
     setting_hideout_shuffle,
     mm_skulltula,
     boss,
-    mq,
 }
 
 export interface Check {
@@ -64,11 +64,13 @@ export interface Check {
     name: string;
     type: CheckType;
     game: Game;
+    canBeMq: boolean;
+    isMq: boolean;
     tags: Tag[];
 }
 
 export interface CheckGroup {
     groupName: string;
-    canBeMq: boolean;
+    canHaveMq: boolean;
     checks: Check[];
 }

@@ -92,9 +92,9 @@
         ? true
         : check.name.toLowerCase().includes(lowerFilter) || group.groupName.toLowerCase().includes(lowerFilter);
 
-    const matchesMq =
-      ($sMqSettings.get(group.groupName) ?? false) ==
-      (check.tags.includes(T.Tag.mq) || check.tags.includes(T.Tag.boss));
+    const matchesMq = check.canBeMq
+      ? ($sMqSettings.get(group.groupName) == check.isMq)
+      : true;
 
     return matchesSettings && matchesFilter && matchesMq;
   };
@@ -192,7 +192,7 @@
       <section class="section">
         <CheckGroup
           groupName={group.groupName}
-          canBeMq={group.canBeMq}
+          canBeMq={group.canHaveMq}
           isMq={$sMqSettings.get(group.groupName) ?? false}
           on:toggleGroup={e => toggleWholeGroup(group)}
           on:toggleMq={e => toggleYmap(yMqSettings, group.groupName)}
