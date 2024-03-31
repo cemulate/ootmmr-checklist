@@ -207,4 +207,220 @@ oot:
     scenes:
       - INSIDE_GANON_CASTLE
       - GANON_TOWER
-mm: {}
+mm: 
+  South Clock Town:
+    checkNamePrefix: ^Clock (Town|Tower Roof)
+    scenes:
+      - CLOCK_TOWN_SOUTH
+      - CLOCK_TOWER_ROOFTOP
+  Laundry Pool:
+    checkNamePrefix: ^Clock Town
+    scenes:
+      - LAUNDRY_POOL
+  North Clock Town:
+    checkNamePrefix: ^Clock Town
+    scenes:
+      - CLOCK_TOWN_NORTH
+      - DEKU_PLAYGROUND
+    checks:
+      - ^Clock Town Great Fairy
+  East Clock Town:
+    checkNamePrefix: ^Clock Town
+    scenes: 
+      - CLOCK_TOWN_EAST
+      - MAYOR_HOUSE
+      - MILK_BAR
+      - SHOOTING_GALLERY
+      - TREASURE_SHOP
+      - HONEY_DARLING
+  Stock Pot Inn:
+    scenes:
+      - STOCK_POT_INN
+  West Clock Town:
+    checkNamePrefix: ^Clock Town
+    scenes:
+      - CLOCK_TOWN_WEST
+      - TRADING_POST
+      - BOMB_SHOP
+      - CURIOSITY_SHOP
+      - POST_OFFICE
+      - SWORDSMAN_SCHOOL
+  Termina Field:
+    scenes:
+      - TERMINA_FIELD
+      - OBSERVATORY
+    checks:
+      # Should be 134 checks!
+      - ^Termina Field Gossip Stones HP
+      - ^Termina Field Scrub
+      - ^Termina Field Cow
+      - ^Termina Field.*Grotto
+      - ^(Ocean|Canyon) Gossip Grotto
+      - ^(Bio Baba|Peahat) Grotto
+  Milk Road:
+    scenes:
+      - MILK_ROAD
+      - GORMAN_TRACK
+  Romani Ranch:
+    scenes:
+      - ROMANI_RANCH
+      - RANCH_HOUSE_BARN
+      - CUCCO_SHACK
+      - DOG_RACETRACK
+  Road To Southern Swamp:
+    scenes:
+      - ROAD_SOUTHERN_SWAMP
+      - SHOOTING_GALLERY_SWAMP
+    checks:
+      - ^Road to Southern Swamp Grotto
+  Southern Swamp:
+    scenes:
+      - SOUTHERN_SWAMP
+      - WOODS_MYSTERY
+      - POTION_SHOP
+      - TOURIST_INFORMATION
+    checks:
+      - ^Southern Swamp Grotto
+      - ^Woods of Mystery Grotto
+  Deku Palace:
+    scenes:
+      - DEKU_PALACE
+      - DEKU_KING_CHAMBER
+      - DEKU_SHRINE
+    checks:
+      - ^Deku Palace Grotto
+  Woodfall:
+    scenes:
+      - WOODFALL
+    checks:
+      - ^Woodfall Great Fairy
+  Swamp Spider House:
+    checkNamePrefix: ^Swamp
+    scenes:
+      - SPIDER_HOUSE_SWAMP
+  Mountain Village:
+    scenes:
+      - MOUNTAIN_VILLAGE_WINTER
+      - MOUNTAIN_VILLAGE_SPRING
+      - BLACKSMITH
+      - GORON_GRAVEYARD
+    checks:
+      - ^Mountain Village Tunnel Grotto
+  Twin Islands:
+    scenes:
+      - TWIN_ISLANDS_WINTER
+      - TWIN_ISLANDS_SPRING
+      - GORON_RACETRACK
+    checks:
+      - ^Twin Islands (Frozen|Ramp) Grotto
+  Goron Village:
+    checkNamePrefix: ^(Goron Shrine|Goron)
+    scenes:
+      - GORON_SHRINE
+      - GORON_SHOP
+      - GORON_VILLAGE_WINTER
+    checks:
+      - ^Lone Peak Shrine
+  Path To Snowhead:
+    scenes:
+      - PATH_SNOWHEAD
+    checks:
+      - ^Snowhead Great Fairy
+      - ^Snowhead Owl Statue$
+      - ^Path To Snowhead Grotto
+  Great Bay Coast:
+    checkNamePrefix: ^(Great Bay Coast|Great Bay)
+    scenes:
+      - GREAT_BAY_COAST
+      - LABORATORY
+    checks:
+      - ^Great Bay Coast Fisherman Grotto
+      - ^Great Bay Cow Grotto
+  Zora Cape:
+    scenes:
+      - ZORA_CAPE
+      - WATERFALL_RAPIDS
+    checks:
+      - ^Great Bay Great Fairy
+      - ^Zora Cape Grotto
+      - ^Zora Cape Pot Game
+  Zora Hall:
+    scenes:
+      - ZORA_HALL
+      - ZORA_HALL_ROOMS
+  Pinnacle Rock:
+    scenes:
+      - PINNACLE_ROCK
+  Pirates Fortress:
+    checkNamePrefix: ^Pirate Fortress
+    scenes:
+      - PIRATE_FORTRESS_ENTRANCE
+      - PIRATE_FORTRESS_INTERIOR
+      - PIRATE_FORTRESS_EXTERIOR
+  Ocean Spider House:
+    checkNamePrefix: ^Ocean
+    scenes:
+      - SPIDER_HOUSE_OCEAN
+  Road To Ikana:
+    scenes:
+      - ROAD_IKANA
+    checks:
+      - ^Road To Ikana Grotto
+  Ikana Graveyard:
+    checkNamePrefix: ^(Ikana Graveyard|Beneath the Graveyard)
+    scenes:
+      - IKANA_GRAVEYARD
+      - BENEATH_THE_GRAVEYARD
+      - DAMPE_HOUSE
+    checks:
+      - ^Ikana Graveyard Grotto
+  Ikana Canyon:
+    checkNamePrefix: ^(Ikana Valley|Ikana Canyon)
+    scenes:
+      - IKANA_CANYON
+      - GHOST_HUT
+      - MUSIC_BOX_HOUSE
+      - SAKON_HIDEOUT
+    checks:
+      - ^Ikana Great Fairy
+      - ^Ikana Valley Grotto
+  Secret Shrine:
+    scenes:
+      - SECRET_SHRINE
+  Beneath The Well:
+    scenes:
+      - BENEATH_THE_WELL
+  Ikana Castle:
+    checkNamePrefix: ^Ancient Castle of Ikana
+    scenes:
+      - CASTLE_IKANA
+      - LAIR_IKANA
+  Stone Tower:
+    scenes:
+      - STONE_TOWER
+      - STONE_TOWER_INVERTED
+  Woodfall Temple:
+    scenes:
+      - TEMPLE_WOODFALL
+      - LAIR_ODOLWA
+  Snowhead Temple:
+    scenes:
+      - TEMPLE_SNOWHEAD
+      - LAIR_GOHT
+  Great Bay Temple:
+    scenes:
+      - TEMPLE_GREAT_BAY
+      - LAIR_GYORG
+  Stone Tower Temple:
+    scenes:
+      - TEMPLE_STONE_TOWER
+      - TEMPLE_STONE_TOWER_INVERTED
+      - LAIR_TWINMOLD
+  The Moon:
+    checkNamePrefix: ^Moon
+    scenes:
+      - MOON_DEKU
+      - MOON_GORON
+      - MOON_ZORA
+      - MOON_LINK
+      - LAIR_MAJORA
