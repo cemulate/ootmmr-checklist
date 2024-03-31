@@ -1,47 +1,18 @@
-# Svelte + Vite
+# OoTMM co-op checklist tracker
 
-This template should help get you started developing with Svelte in Vite.
+An online/co-op capable checklist tracker for the [OoTMM Randomizer](https://ootmm.com/).
+Join the same room to mark off checks collaboratively with other players.
+[Try it here](https://cemulate.github.io/ootmmr-checklist).
 
-## Recommended IDE Setup
+## Development / how it works
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+At compile time, the item and check data is processed and manipulated directly from the item pools in the [OoTMM repo](https://github.com/OoTMM/OoTMM); everything related to this process lives in `src/data`.
+The processing can be performed with `npm run process-data`, which produces `src/data/dist/structured-checks[-lite].json`.
 
-## Need an official Svelte framework?
+The app itself is a [Vite](https://vitejs.dev/)/[Svelte](https://svelte.dev/) app written in TypeScript.
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
-
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
--   It brings its own routing solution which might not be preferable for some users.
--   It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `checkJs` in the JS template?**
-
-It is likely that most cases of changing variable types in runtime are likely to be accidental, rather than deliberate. This provides advanced typechecking out of the box. Should you like to take advantage of the dynamically-typed nature of JavaScript, it is trivial to change the configuration.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/sveltejs/svelte-hmr/tree/master/packages/svelte-hmr#preservation-of-local-state).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```js
-// store.js
-// An extremely simple external store
-import { writable } from 'svelte/store';
-export default writable(0);
-```
+The functionality is powered by
+-   [yjs](https://yjs.dev/), a powerful collaborative/shared-editing framework, together with
+    -   [y-indexeddb](https://github.com/yjs/y-indexeddb), automatically persisting the shared data locally in the browser
+    -   [y-webrtc](https://github.com/yjs/y-webrtc), automatically syncing the shared data to connected peers via WebRTC!
+    -   An extremely lightweight _signaling_ server for y-webrtc based on [ngryman's implementation](https://github.com/ngryman/signaling), that helps peers connect over WebRTC, which is deployed with [fly.io](https://fly.io)

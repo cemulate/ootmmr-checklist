@@ -9,13 +9,15 @@
         "preview": "vite preview",
         "check": "svelte-check --tsconfig ./tsconfig.json",
         "process-data": "tsx ./src/data/process.ts",
-        "format": "prettier --write ."
+        "format": "prettier --write .",
+        "publish": "gh-pages -d dist"
     },
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "^3.0.2",
         "@tsconfig/svelte": "^5.0.4",
         "@types/node": "^20.12.2",
         "csv-parse": "^5.5.5",
+        "gh-pages": "^6.1.1",
         "postcss-nesting": "^12.1.0",
         "prettier": "^3.2.5",
         "prettier-plugin-svelte": "^3.2.2",
