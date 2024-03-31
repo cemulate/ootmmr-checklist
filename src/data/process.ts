@@ -3,16 +3,29 @@ import * as yaml from 'yaml';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
 import * as T from './types';
-import { group } from 'console';
+import { parse as parseCsv } from 'csv-parse/sync';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
-const poolFile = readFileSync(join(__dirname, 'input/data-pool.json'), 'utf-8');
-const POOL: T.RawPoolData = JSON.parse(poolFile);
+// Get the freshest item pools directly from the OoTMM repo!
 
+const poolCsvUrls = [
+    'https://github.com/OoTMM/OoTMM/raw/master/packages/data/src/pool/pool_oot.csv',
+    'https://github.com/OoTMM/OoTMM/raw/master/packages/data/src/pool/pool_mm.csv',
+];
+
+const POOL: T.RawPoolData = await Promise.all(poolCsvUrls.map(async u => {
+    const response = await fetch(u);
+    const csv = await response.text();
+    return parseCsv(csv, { columns: true, skip_empty_lines: true, trim: true });
+})).then(([oot, mm]) => ({ oot, mm }));
+
+// This is a human-constructed/human-readable description of how to process
+// and organize the checks in the pool
 const groupingFile = readFileSync(join(__dirname, 'grouping.yaml'), 'utf-8');
 const GROUPING: T.GroupingData = yaml.parse(groupingFile);
 
+// The all-sanity checks to exclude for the lite version
 const liteBlacklist = [
     T.CheckType.fairy,
     T.CheckType.fairy_spot,
@@ -53,6 +66,7 @@ function createCheckEntry(poolEntry: T.RawPoolEntry, game: T.Game, prefix: strin
 
 for (let game in T.Game) {
     for (const [ groupName, group ] of Object.entries(GROUPING[game])) {
+        const gamePool = POOL[game as T.Game];
 
         let sceneEntries: T.RawPoolEntry[] = [];
 
@@ -63,15 +77,15 @@ for (let game in T.Game) {
         // The first scene is chosen to be the only one capable of having checks that have 
         // MQ or Vanilla versions; for ordering reasons, grab all such checks FIRST.
         sceneEntries = [
-            ...POOL[game].filter(x => x.scene == firstScene),
-            ...POOL[game].filter(x => tailScenes.includes(x.scene)),
+            ...gamePool.filter(x => x.scene == firstScene),
+            ...gamePool.filter(x => tailScenes.includes(x.scene)),
         ];
         
         // Other checks that match one of the regex in 'checks' belong in this group
         let otherEntries =
             group.checks?.flatMap(c => {
                 const rx = new RegExp(c);
-                return POOL[game].filter(x => rx.test(x.location));
+                return gamePool.filter(x => rx.test(x.location));
             }) ?? [];
 
         const poolEntries = [...sceneEntries, ...otherEntries];
