@@ -20,7 +20,7 @@
 
   function joinCoopRoom(name) {
     roomName = name ?? new Date().getTime().toString(36);
-    const signaling = ['ws://192.168.1.100:5010'];
+    const signaling = ['https://ootmmr-checklist-signaling.fly.dev/'];
     connectionProvider = new WebrtcProvider(roomName, ydoc, { signaling });
   }
 
