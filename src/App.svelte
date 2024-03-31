@@ -122,6 +122,13 @@
       toggleYmap(yChecks, group.checks[i].name);
     }
   }
+
+  function reset() {
+    if (window.confirm('Are you sure you want to clear all checks?')) {
+      const keys = Array.from(yChecks.keys());
+      keys.map(k => yChecks.delete(k));
+    }
+  }
 </script>
 
 <main>
@@ -142,6 +149,7 @@
               </label>
             {/each}
           </fieldset>
+          <button class="pure-button" on:click|preventDefault={reset}>Clear/Reset</button>
         </form>
         <div>
           {#if connectionProvider == null}
