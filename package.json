@@ -8,11 +8,13 @@
         "build": "vite build",
         "preview": "vite preview",
         "check": "svelte-check --tsconfig ./tsconfig.json",
+        "process-data": "tsx ./src/data/process.ts",
         "format": "prettier --write ."
     },
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "^3.0.2",
         "@tsconfig/svelte": "^5.0.4",
+        "@types/node": "^20.12.2",
         "postcss-nesting": "^12.1.0",
         "prettier": "^3.2.5",
         "prettier-plugin-svelte": "^3.2.2",
@@ -21,6 +23,7 @@
         "svelte": "^4.2.12",
         "svelte-check": "^3.6.8",
         "tslib": "^2.6.2",
+        "tsx": "^4.7.1",
         "typescript": "^5.4.3",
         "vite": "^5.2.0",
         "y-indexeddb": "^9.0.12",

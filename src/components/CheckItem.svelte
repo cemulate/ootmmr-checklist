@@ -1,34 +1,13 @@
-<script>
+<script lang="ts">
+  import * as T from '../data/types';
   import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
 
-  export let type = '';
+  export let type: T.CheckType = T.CheckType.chest;
   export let name = '';
-  export let tags = [];
+  export let tags: T.Tag[] = [];
   export let checked = false;
-
-  const toggle = event => {
-    dispatch('toggle', { state: event.target.checked });
-  };
-
-  const typeIcons = {
-    chest: '',
-    collectible: '',
-    cow: '🐮',
-    fairy: '🧚',
-    fairy_spot: '🧚',
-    fish: '🐟',
-    grass: '',
-    gs: '🕸️',
-    heart: '♥️',
-    npc: '🧑',
-    pot: '',
-    rupee: '',
-    scrub: '',
-    shop: '',
-    sr: '',
-  };
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -45,8 +24,6 @@
     padding: 5px;
     margin: 2px;
     background-color: #fff2cc;
-    /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
-    /* box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em; */
     box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     user-select: none;
 
