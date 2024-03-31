@@ -92,9 +92,7 @@
         ? true
         : check.name.toLowerCase().includes(lowerFilter) || group.groupName.toLowerCase().includes(lowerFilter);
 
-    const matchesMq = check.canBeMq
-      ? ($sMqSettings.get(group.groupName) == check.isMq)
-      : true;
+    const matchesMq = check.canBeMq ? $sMqSettings.get(group.groupName) == check.isMq : true;
 
     return matchesSettings && matchesFilter && matchesMq;
   };

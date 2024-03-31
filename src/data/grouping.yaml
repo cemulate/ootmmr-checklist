@@ -207,7 +207,7 @@ oot:
     scenes:
       - INSIDE_GANON_CASTLE
       - GANON_TOWER
-mm: 
+mm:
   South Clock Town:
     checkNamePrefix: ^Clock (Town|Tower Roof)
     scenes:
@@ -226,7 +226,7 @@ mm:
       - ^Clock Town Great Fairy
   East Clock Town:
     checkNamePrefix: ^Clock Town
-    scenes: 
+    scenes:
       - CLOCK_TOWN_EAST
       - MAYOR_HOUSE
       - MILK_BAR

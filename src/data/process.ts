@@ -14,11 +14,13 @@ const poolCsvUrls = [
     'https://github.com/OoTMM/OoTMM/raw/master/packages/data/src/pool/pool_mm.csv',
 ];
 
-const POOL: T.RawPoolData = await Promise.all(poolCsvUrls.map(async u => {
-    const response = await fetch(u);
-    const csv = await response.text();
-    return parseCsv(csv, { columns: true, skip_empty_lines: true, trim: true });
-})).then(([oot, mm]) => ({ oot, mm }));
+const POOL: T.RawPoolData = await Promise.all(
+    poolCsvUrls.map(async u => {
+        const response = await fetch(u);
+        const csv = await response.text();
+        return parseCsv(csv, { columns: true, skip_empty_lines: true, trim: true });
+    }),
+).then(([oot, mm]) => ({ oot, mm }));
 
 // This is a human-constructed/human-readable description of how to process
 // and organize the checks in the pool
@@ -40,7 +42,12 @@ const liteBlacklist = [
 const structuredChecks: T.CheckGroup[] = [];
 const liteChecks: T.CheckGroup[] = [];
 
-function createCheckEntry(poolEntry: T.RawPoolEntry, game: T.Game, prefix: string | RegExp, mqScene: string | null): T.Check {
+function createCheckEntry(
+    poolEntry: T.RawPoolEntry,
+    game: T.Game,
+    prefix: string | RegExp,
+    mqScene: string | null,
+): T.Check {
     const tags: T.Tag[] = [];
 
     // mqScene is the scene capable of having both MQ and Vanilla verisons of checks
@@ -65,7 +72,7 @@ function createCheckEntry(poolEntry: T.RawPoolEntry, game: T.Game, prefix: strin
 }
 
 for (let game in T.Game) {
-    for (const [ groupName, group ] of Object.entries(GROUPING[game])) {
+    for (const [groupName, group] of Object.entries(GROUPING[game])) {
         const gamePool = POOL[game as T.Game];
 
         let sceneEntries: T.RawPoolEntry[] = [];
@@ -74,13 +81,13 @@ for (let game in T.Game) {
         let tailScenes = group.scenes.slice(1);
 
         // All checks from the pool that have one of the listed scenes are in this group
-        // The first scene is chosen to be the only one capable of having checks that have 
+        // The first scene is chosen to be the only one capable of having checks that have
         // MQ or Vanilla versions; for ordering reasons, grab all such checks FIRST.
         sceneEntries = [
             ...gamePool.filter(x => x.scene == firstScene),
             ...gamePool.filter(x => tailScenes.includes(x.scene)),
         ];
-        
+
         // Other checks that match one of the regex in 'checks' belong in this group
         let otherEntries =
             group.checks?.flatMap(c => {
