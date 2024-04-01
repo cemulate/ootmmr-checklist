@@ -39,12 +39,14 @@
     joinCoopRoom(name);
   }
 
-  // The shared document consist of three Boolean-valued Maps y[...]
+  // The shared document consist of three Y.Maps y[...]
   // Each will be mirrored by a Svelte store s[...] to use in the UI
 
-  // The main map representing whether checks are marked off or not
-  const yChecks: Y.Map<boolean> = ydoc.getMap('checks');
+  // The main map representing the state of checks
+  const yChecks: Y.Map<T.CheckState> = ydoc.getMap('checks');
   const sChecks = readableMap(yChecks);
+
+  const toggleState = (x: T.CheckState) => (x != T.CheckState.checked ? T.CheckState.checked : T.CheckState.unchecked);
 
   // The settings map controlling which checks to display
   const ySettings: Y.Map<boolean> = ydoc.getMap('settings');
@@ -73,6 +75,7 @@
 
   // Global search/filter
   let filter = '';
+  let hideChecked = false;
 
   // From settings, craft the predicate that tells whether or not we should display a particular check
   $: checkPredicate = (group: T.CheckGroup, check: T.Check) => {
@@ -92,9 +95,11 @@
         ? true
         : check.name.toLowerCase().includes(lowerFilter) || group.groupName.toLowerCase().includes(lowerFilter);
 
-    const matchesMq = check.canBeMq ? $sMqSettings.get(group.groupName) == check.isMq : true;
+    const matchesMq = check.canBeMq ? ($sMqSettings.get(group.groupName) ?? false) == check.isMq : true;
 
-    return matchesSettings && matchesFilter && matchesMq;
+    const matchesHideChecked = hideChecked ? $sChecks.get(check.name) != T.CheckState.checked : true;
+
+    return matchesSettings && matchesFilter && matchesMq && matchesHideChecked;
   };
 
   // Filter the structuredChecks, omitting entirely groups that are left with an empty array of checks
@@ -108,24 +113,27 @@
     map.set(key, !(map.get(key) ?? defaultVal));
   }
 
-  // Toggle entire groups; if all checks are marked, unmark them all. Otherwise, mark them all.
+  // Toggle entire groups; if all are checked, uncheck them all. Otherwise, check them all.
+  // This clobbers information between, setting them all to the same state as the initial check
   function toggleWholeGroup(group: T.CheckGroup) {
-    let newVal = !group.checks.every(({ name }) => yChecks.get(name) ?? false);
+    const allChecked = group.checks.every(({ name }) => yChecks.get(name) == T.CheckState.checked);
+    const newVal = allChecked ? T.CheckState.unchecked : T.CheckState.checked;
     group.checks.map(({ name }) => yChecks.set(name, newVal));
   }
 
-  interface Toggle {
+  interface CheckAction {
     group: T.CheckGroup;
     checkIndex: number;
+    newState: T.CheckState;
   }
 
-  let lastPlace: Toggle | null = null;
+  let lastAction: CheckAction | null = null;
 
-  function toggleRangeTo(place: Toggle) {
-    if (lastPlace == null || lastPlace.group.groupName != place.group.groupName) return;
+  function toggleRangeTo(group: T.CheckGroup, checkIndex: number) {
+    if (lastAction == null || lastAction.group.groupName != group.groupName) return;
 
-    for (let i = lastPlace.checkIndex + 1; i < place.checkIndex + 1; i++) {
-      toggleYmap(yChecks, place.group.checks[i].name);
+    for (let i = lastAction.checkIndex + 1; i < checkIndex + 1; i++) {
+      yChecks.set(group.checks[i].name, lastAction.newState);
     }
   }
 
@@ -138,11 +146,17 @@
 </script>
 
 <main>
-  <section class="section top-bar">
-    <details class="details" open>
-      <summary><strong class="interactable">Config</strong></summary>
-      <div class="settings-container">
+  <section class="top-bar">
+    <details id="configuration-details" open>
+      <summary>
+        <strong class="interactable">Config</strong>
+        {#if connectionProvider != null}
+          <span>&nbsp; (Connected to room: <code>{roomName}</code>)</span>
+        {/if}
+      </summary>
+      <div id="settings-container" class="flex flex-wrap" style="margin-top: 0.8em">
         <form class="pure-form pure-form-stacked">
+          <a href="https://github.com/cemulate/ootmmr-checklist" style="margin-left: auto">↗ More info</a>
           <fieldset>
             {#each Object.entries(settingNames) as [setting, name]}
               <label>
@@ -155,39 +169,64 @@
               </label>
             {/each}
           </fieldset>
-          <button class="pure-button" on:click|preventDefault={reset}>Clear/Reset</button>
         </form>
-        <div>
+        <div class="flex flex-col">
           {#if connectionProvider == null}
             <form
               class="pure-form"
               on:submit|preventDefault={e => joinCoopRoom(e.target?.querySelector('#room-code-input').value)}
             >
               <fieldset>
-                <input id="room-code-input" class="" type="text" placeholder="Room code" required pattern="[a-z0-9]+" />
-                <button type="submit" class="pure-button">Join room</button>
+                <input
+                  id="room-code-input"
+                  class=""
+                  type="text"
+                  placeholder="Room code"
+                  required
+                  pattern={`[a-z0-9]{8,}`}
+                />
+                <button type="submit" class="bg-primary pure-button">Join room</button>
               </fieldset>
             </form>
-            <button class="pure-button" on:click={e => joinCoopRoom()}>Create new co-op room</button>
+            <div class="block">
+              <button class="bg-primary fullwidth pure-button" on:click={e => joinCoopRoom()}
+                >Create new co-op room</button
+              >
+            </div>
           {:else}
-            <p>Connected to room: <code>{roomName}</code></p>
-            <button class="pure-button" on:click={e => window.navigator.clipboard.writeText(window.location.href)}
-              >Copy Link</button
-            >
-            <button class="pure-button" on:click={leaveCoopRoom}>Disconnect</button>
+            <form class="pure-form">
+              <fieldset>
+                <button
+                  class="bg-primary pure-button"
+                  on:click={e => window.navigator.clipboard.writeText(window.location.href)}>Copy Room Link</button
+                >
+                <button class="bg-primary pure-button" on:click={leaveCoopRoom}>Disconnect</button>
+              </fieldset>
+            </form>
           {/if}
+          <div class="block" style="margin-top: auto">
+            <button class="bg-danger fullwidth pure-button" on:click|preventDefault={reset}>Clear/Reset</button>
+          </div>
         </div>
       </div>
     </details>
   </section>
-  <section class="section">
+  <section>
     <form class="pure-form">
-      <input type="text" class="pure-u-1" placeholder="Filter..." bind:value={filter} />
+      <fieldset>
+        <button
+          class="pure-button"
+          class:pure-button-active={hideChecked}
+          class:bg-unchecked={hideChecked}
+          on:click={e => (hideChecked = !hideChecked)}>Hide Checked</button
+        >
+        <input type="text" style="width: 16em" placeholder="Filter..." bind:value={filter} />
+      </fieldset>
     </form>
   </section>
   {#if filteredChecks != null}
     {#each filteredChecks as group}
-      <section class="section">
+      <section>
         <CheckGroup
           groupName={group.groupName}
           canBeMq={group.canHaveMq}
@@ -199,16 +238,18 @@
             <CheckItem
               name={check.shortName}
               type={check.type}
-              checked={$sChecks.get(check.name) ?? false}
+              state={$sChecks.get(check.name) ?? T.CheckState.unchecked}
               tags={check.tags}
-              on:click={e => {
-                if (e.shiftKey) {
-                  toggleRangeTo({ group, checkIndex });
+              on:toggle={e => {
+                if (e.detail.range) {
+                  toggleRangeTo(group, checkIndex);
                 } else {
-                  lastPlace = { group, checkIndex };
-                  toggleYmap(yChecks, check.name);
+                  const newState = toggleState($sChecks.get(check.name) ?? T.CheckState.unchecked);
+                  lastAction = { group, checkIndex, newState };
+                  yChecks.set(check.name, newState);
                 }
               }}
+              on:mark={e => yChecks.set(check.name, T.CheckState.marked)}
             />
           {/each}
         </CheckGroup>
@@ -219,22 +260,18 @@
 
 <style>
   main {
-    margin: 10px;
+    margin: 0.8em;
   }
 
-  .details {
+  #configuration-details {
     border: 1px solid lightgray;
     padding: 0.5em 1em 0.5em 1em;
     border-radius: 0.2em;
   }
 
-  .settings-container {
-    margin-top: 5px;
-    display: flex;
-    flex-wrap: wrap;
-
-    > *:not(:last-child) {
-      margin-right: 20px;
+  #settings-container > *:not(:last-child) {
+    @media screen and (min-width: 35.5em) {
+      margin-right: 1.6em;
     }
   }
 </style>

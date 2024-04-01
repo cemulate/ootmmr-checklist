@@ -17,7 +17,8 @@ oot:
       - ^Lost Woods Grotto
       - ^Deku Theater
   Sacred Forest Meadow:
-    checkNamePrefix: ^Sacred Meadow
+    replacements:
+      - ['^Sacred Meadow', '']
     scenes:
       - SACRED_FOREST_MEADOW
     checks:
@@ -52,7 +53,8 @@ oot:
     scenes:
       - TEMPLE_OF_TIME
   Hyrule/Ganon's Castle Exterior:
-    checkNamePrefix: ^(Hyrule|Ganon) Castle
+    replacements:
+      - ['^(Hyrule|Ganon) Castle', '']
     scenes:
       - CASTLE_COURTYARD
       - GANON_CASTLE_EXTERIOR
@@ -62,7 +64,8 @@ oot:
       - ^Great Fairy Defense Upgrade
       - ^Hatch Chicken
   Kakariko Village:
-    checkNamePrefix: ^Kakariko
+    replacements:
+      - ['^Kakariko', '']
     scenes:
       - KAKARIKO_POTION_SHOP
       - KAKARIKO_VILLAGE
@@ -83,21 +86,24 @@ oot:
     checks:
       - ^Graveyard Dampe
   Zora's River:
-    checkNamePrefix: ^Zora River
+    replacements:
+      - ['^Zora River', '']
     scenes:
       - ZORA_RIVER
     checks:
       - ^Zora River Fairy Fountain Fairy [0-9]+
       - ^Zora River.*Grotto
   Zora's Domain:
-    checkNamePrefix: ^Zora Domain
+    replacements:
+      - ['^Zora Domain', '']
     scenes:
       - ZORA_DOMAIN
       - ZORA_SHOP
     checks:
       - ^Zora Domain Fairy Fountain Fairy [0-9]+
   Zora's Fountain:
-    checkNamePrefix: ^Zora Fountain
+    replacements:
+      - ['^Zora Fountain', '']
     scenes:
       - ZORA_FOUNTAIN
     checks:
@@ -153,13 +159,15 @@ oot:
       - LAIR_GOHMA
   Dodongo's Cavern:
     canBeMq: true
-    checkNamePrefix: ^Dodongo Cavern
+    replacements:
+      - ['^Dodongo Cavern', '']
     scenes:
       - DODONGO_CAVERN
       - LAIR_KING_DODONGO
   Jabu Jabu's Belly:
     canBeMq: true
-    checkNamePrefix: Jabu-Jabu
+    replacements:
+      - ['Jabu-Jabu', '']
     scenes:
       - INSIDE_JABU_JABU
       - LAIR_BARINADE
@@ -173,7 +181,8 @@ oot:
       - ICE_CAVERN
   Gerudo Training Grounds:
     canBeMq: true
-    checkNamePrefix: ^Gerudo Training( Grounds|)
+    replacements:
+      - ['^Gerudo Training( Grounds|)', '']
     scenes:
       - GERUDO_TRAINING_GROUND
   Forest Temple:
@@ -203,29 +212,34 @@ oot:
       - LAIR_TWINROVA
   Ganon's Castle:
     canBeMq: true
-    checkNamePrefix: ^Ganon Castle
+    replacements:
+      - ['^Ganon Castle', '']
     scenes:
       - INSIDE_GANON_CASTLE
       - GANON_TOWER
 mm:
   South Clock Town:
-    checkNamePrefix: ^Clock (Town|Tower Roof)
+    replacements:
+      - ['^Clock (Town|Tower Roof)', '']
     scenes:
       - CLOCK_TOWN_SOUTH
       - CLOCK_TOWER_ROOFTOP
   Laundry Pool:
-    checkNamePrefix: ^Clock Town
+    replacements:
+      - ['^Clock Town', '']
     scenes:
       - LAUNDRY_POOL
   North Clock Town:
-    checkNamePrefix: ^Clock Town
+    replacements:
+      - ['^Clock Town', '']
     scenes:
       - CLOCK_TOWN_NORTH
       - DEKU_PLAYGROUND
     checks:
       - ^Clock Town Great Fairy
   East Clock Town:
-    checkNamePrefix: ^Clock Town
+    replacements:
+      - ['^Clock Town', '']
     scenes:
       - CLOCK_TOWN_EAST
       - MAYOR_HOUSE
@@ -237,7 +251,8 @@ mm:
     scenes:
       - STOCK_POT_INN
   West Clock Town:
-    checkNamePrefix: ^Clock Town
+    replacements:
+      - ['^Clock Town', '']
     scenes:
       - CLOCK_TOWN_WEST
       - TRADING_POST
@@ -295,7 +310,8 @@ mm:
     checks:
       - ^Woodfall Great Fairy
   Swamp Spider House:
-    checkNamePrefix: ^Swamp
+    replacements:
+      - ['^Swamp', '']
     scenes:
       - SPIDER_HOUSE_SWAMP
   Mountain Village:
@@ -314,7 +330,8 @@ mm:
     checks:
       - ^Twin Islands (Frozen|Ramp) Grotto
   Goron Village:
-    checkNamePrefix: ^(Goron Shrine|Goron)
+    replacements:
+      - ['^(Goron Shrine|Goron)', '']
     scenes:
       - GORON_SHRINE
       - GORON_SHOP
@@ -329,7 +346,8 @@ mm:
       - ^Snowhead Owl Statue$
       - ^Path To Snowhead Grotto
   Great Bay Coast:
-    checkNamePrefix: ^(Great Bay Coast|Great Bay)
+    replacements:
+      - ['^(Great Bay Coast|Great Bay)', '']
     scenes:
       - GREAT_BAY_COAST
       - LABORATORY
@@ -352,13 +370,15 @@ mm:
     scenes:
       - PINNACLE_ROCK
   Pirates Fortress:
-    checkNamePrefix: ^Pirate Fortress
+    replacements:
+      - ['^Pirate Fortress', '']
     scenes:
       - PIRATE_FORTRESS_ENTRANCE
       - PIRATE_FORTRESS_INTERIOR
       - PIRATE_FORTRESS_EXTERIOR
   Ocean Spider House:
-    checkNamePrefix: ^Ocean
+    replacements:
+      - ['^Ocean', '']
     scenes:
       - SPIDER_HOUSE_OCEAN
   Road To Ikana:
@@ -367,7 +387,9 @@ mm:
     checks:
       - ^Road To Ikana Grotto
   Ikana Graveyard:
-    checkNamePrefix: ^(Ikana Graveyard|Beneath the Graveyard)
+    replacements:
+      - ['^Ikana Graveyard', '']
+      - ['^Beneath The Graveyard', 'Grave']
     scenes:
       - IKANA_GRAVEYARD
       - BENEATH_THE_GRAVEYARD
@@ -375,7 +397,8 @@ mm:
     checks:
       - ^Ikana Graveyard Grotto
   Ikana Canyon:
-    checkNamePrefix: ^(Ikana Valley|Ikana Canyon)
+    replacements:
+      - ['^(Ikana Valley|Ikana Canyon)', '']
     scenes:
       - IKANA_CANYON
       - GHOST_HUT
@@ -391,7 +414,8 @@ mm:
     scenes:
       - BENEATH_THE_WELL
   Ikana Castle:
-    checkNamePrefix: ^Ancient Castle of Ikana
+    replacements:
+      - ['^Ancient Castle of Ikana', '']
     scenes:
       - CASTLE_IKANA
       - LAIR_IKANA
@@ -417,7 +441,8 @@ mm:
       - TEMPLE_STONE_TOWER_INVERTED
       - LAIR_TWINMOLD
   The Moon:
-    checkNamePrefix: ^Moon
+    replacements:
+      - ['^Moon', '']
     scenes:
       - MOON_DEKU
       - MOON_GORON

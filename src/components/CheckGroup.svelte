@@ -38,6 +38,6 @@
     margin: 5px;
     display: grid;
     /* https://css-tricks.com/an-auto-filling-css-grid-with-max-columns/ */
-    grid-template-columns: repeat(auto-fill, minmax(max(250px, 12%), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(max(16em, 12%), 1fr));
   }
 </style>

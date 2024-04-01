@@ -45,27 +45,36 @@ const liteChecks: T.CheckGroup[] = [];
 function createCheckEntry(
     poolEntry: T.RawPoolEntry,
     game: T.Game,
-    prefix: string | RegExp,
+    groupName: string,
+    group: T.GroupingEntry,
     mqScene: string | null,
 ): T.Check {
-    const tags: T.Tag[] = [];
-
     // mqScene is the scene capable of having both MQ and Vanilla verisons of checks
     const canBeMq = mqScene != null && poolEntry.scene == mqScene;
     const isMq = poolEntry.location.startsWith('MQ');
 
+    const tags: T.Tag[] = [];
     if (/^Treasure Chest Game [^H]/.test(poolEntry.location)) tags.push(T.Tag.setting_tcg);
     if (/^Lost Woods.*Scrub.*Upgrade/.test(poolEntry.location)) tags.push(T.Tag.special_scrub);
     if (/^Hyrule Field Grotto Scrub HP/.test(poolEntry.location)) tags.push(T.Tag.special_scrub);
     if (/^Gerudo Fortress Jail [0-9]/.test(poolEntry.location)) tags.push(T.Tag.setting_hideout_shuffle);
     if (/^(Swamp|Ocean) Skulltula/.test(poolEntry.location)) tags.push(T.Tag.mm_skulltula);
 
-    // Prefix is used to create the shortName of checks that include the area name in their full name
     let shortName = poolEntry.location;
+
+    // Always replacements and tweaks
     shortName = shortName.replace('MQ ', '');
-    if (prefix != null) shortName = shortName.replace(prefix, '');
-    // (This actually makes it longer, but clearer)
     shortName = shortName.replace('HP', 'Heart Piece');
+    shortName = shortName.replace('HC', 'Heart Container');
+
+    // If the entry has specified replacements, use those.
+    // Otherwise, it is assumed by default that we will remove the group's name
+    // from any checks that start with it.
+    const replacements = group?.replacements ?? [[`^${groupName}`, '']];
+    for (const [r, s] of replacements) {
+        shortName = shortName.replace(new RegExp(r), s);
+    }
+
     shortName = shortName.trim();
 
     return { shortName, name: poolEntry.location, type: T.CheckType[poolEntry.type], game, canBeMq, isMq, tags };
@@ -97,9 +106,9 @@ for (let game in T.Game) {
 
         const poolEntries = [...sceneEntries, ...otherEntries];
 
-        const prefix = group.checkNamePrefix != null ? new RegExp(group.checkNamePrefix) : new RegExp(`^${groupName}`);
+        // const prefix = group.checkNamePrefix != null ? new RegExp(group.checkNamePrefix) : new RegExp(`^${groupName}`);
         const mqScene = group.canBeMq ? firstScene : null;
-        let entries = poolEntries.map(c => createCheckEntry(c, T.Game[game as T.Game], prefix, mqScene));
+        let entries = poolEntries.map(c => createCheckEntry(c, T.Game[game as T.Game], groupName, group, mqScene));
 
         // "Crush" shop entries like '.... Item n' down to a single check '.... Items'
         let shopIndex = entries.findIndex(x => x.type == T.CheckType.shop);

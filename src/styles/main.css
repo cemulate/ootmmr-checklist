@@ -1,0 +1,44 @@
+:root {
+    --color-primary: rgb(102, 209, 255);
+    --color-danger: lightcoral;
+    --color-unchecked: #fff2cc;
+}
+
+.bg-primary {
+    background-color: var(--color-primary);
+}
+.bg-danger {
+    background-color: var(--color-danger);
+}
+.bg-unchecked {
+    background-color: var(--color-unchecked);
+}
+
+div.block {
+    margin-bottom: 0.8em;
+    &:last-child {
+        margin-bottom: none;
+    }
+}
+
+.fullwidth {
+    width: 100%;
+}
+
+section {
+    margin-bottom: 0.8em;
+}
+
+.interactable:hover {
+    color: hsl(229deg, 53%, 53%);
+    cursor: pointer;
+}
+
+.pure-button {
+    border-radius: 0.4em;
+
+    &:focus {
+        background-image: unset;
+        outline: 1px auto #129fea;
+    }
+}

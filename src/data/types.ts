@@ -33,7 +33,7 @@ export type RawPoolData = {
 
 export interface GroupingEntry {
     canBeMq?: boolean;
-    checkNamePrefix?: string;
+    replacements?: string[];
     scenes: string[];
     checks: string[];
 }
@@ -67,6 +67,12 @@ export interface Check {
     canBeMq: boolean;
     isMq: boolean;
     tags: Tag[];
+}
+
+export enum CheckState {
+    unchecked, // No information about the check
+    marked, // The check should be emphasized (seen but unreachable, hinted, etc.)
+    checked, // The check has been gotten
 }
 
 export interface CheckGroup {
