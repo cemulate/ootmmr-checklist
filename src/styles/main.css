@@ -2,6 +2,8 @@
     --color-primary: rgb(102, 209, 255);
     --color-danger: lightcoral;
     --color-unchecked: #fff2cc;
+    --color-marked: gold;
+    --color-checked: #eeeeee;
 }
 
 .bg-primary {

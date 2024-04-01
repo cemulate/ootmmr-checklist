@@ -37,13 +37,13 @@
     background-color: var(--color-unchecked);
 
     &.marked {
-      background-color: gold;
+      background-color: var(--color-marked);
       font-weight: bold;
       box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     }
 
     &.checked {
-      background-color: #eeeeee;
+      background-color: var(--color-checked);
       opacity: 0.6;
     }
 

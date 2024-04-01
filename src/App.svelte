@@ -156,7 +156,7 @@
       </summary>
       <div id="settings-container" class="flex flex-wrap" style="margin-top: 0.8em">
         <form class="pure-form pure-form-stacked">
-          <a href="https://github.com/cemulate/ootmmr-checklist" style="margin-left: auto">↗ More info</a>
+          <a href="https://github.com/cemulate/ootmmr-checklist" target="_blank" style="margin-left: auto">↗ More info</a>
           <fieldset>
             {#each Object.entries(settingNames) as [setting, name]}
               <label>
