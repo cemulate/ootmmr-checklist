@@ -18,6 +18,7 @@
         "@types/node": "^20.12.2",
         "csv-parse": "^5.5.5",
         "gh-pages": "^6.1.1",
+        "plausible-tracker": "^0.3.9",
         "postcss-nesting": "^12.1.0",
         "prettier": "^3.2.5",
         "prettier-plugin-svelte": "^3.2.2",
