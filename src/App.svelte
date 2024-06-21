@@ -198,7 +198,7 @@
               <fieldset>
                 <button
                   class="bg-primary pure-button"
-                  on:click={e => window.navigator.clipboard.writeText(window.location.href)}>Copy Room Link</button
+                  on:click|preventDefault={e => window.navigator.clipboard.writeText(window.location.href)}>Copy Room Link</button
                 >
                 <button class="bg-primary pure-button" on:click={leaveCoopRoom}>Disconnect</button>
               </fieldset>
