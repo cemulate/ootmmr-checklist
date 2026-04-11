@@ -10,8 +10,8 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 // Get the freshest item pools directly from the OoTMM repo!
 
 const poolCsvUrls = [
-    'https://github.com/OoTMM/OoTMM/raw/master/packages/data/src/pool/pool_oot.csv',
-    'https://github.com/OoTMM/OoTMM/raw/master/packages/data/src/pool/pool_mm.csv',
+    'https://raw.githubusercontent.com/OoTMM/OoTMM/refs/heads/master/data/pool/pool_oot.csv',
+    'https://raw.githubusercontent.com/OoTMM/OoTMM/refs/heads/master/data/pool/pool_mm.csv'
 ];
 
 const POOL: T.RawPoolData = await Promise.all(
@@ -29,14 +29,27 @@ const GROUPING: T.GroupingData = yaml.parse(groupingFile);
 
 // The all-sanity checks to exclude for the lite version
 const liteBlacklist = [
+    T.CheckType.barrel,
+    T.CheckType.bush,
+    T.CheckType.butterfly,
+    T.CheckType.crate,
     T.CheckType.fairy,
     T.CheckType.fairy_spot,
     T.CheckType.fish,
     T.CheckType.grass,
     T.CheckType.heart,
+    T.CheckType.hive,
+    T.CheckType.icicle,
     T.CheckType.pot,
+    T.CheckType.redboulder,
+    T.CheckType.redice,
+    T.CheckType.rock,
     T.CheckType.rupee,
+    T.CheckType.snowball,
+    T.CheckType.soil,
     T.CheckType.sr,
+    T.CheckType.tree,
+    T.CheckType.wonder,
 ];
 
 const structuredChecks: T.CheckGroup[] = [];
@@ -133,5 +146,7 @@ for (let game in T.Game) {
     }
 }
 
+mkdirSync(join(__dirname, 'dist'), { recursive: true });
+writeFileSync(join(__dirname, 'dist', 'data-pool-raw.json'), JSON.stringify(POOL));
 writeFileSync(join(__dirname, 'dist', 'structured-checks.json'), JSON.stringify(structuredChecks));
 writeFileSync(join(__dirname, 'dist', 'structured-checks-lite.json'), JSON.stringify(liteChecks));

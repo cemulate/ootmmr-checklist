@@ -1,22 +1,37 @@
 // jq '.oot+.mm | map(.type) | unique' < src/data/input/data-pool.json
 export enum CheckType {
+    barrel,
+    bush,
+    butterfly,
     chest,
     collectible,
     cow,
+    crate,
     fairy,
     fairy_spot,
     fish,
     grass,
     gs,
     heart,
+    hive,
+    icicle,
     npc,
     pot,
+    redboulder,
+    redice,
+    rock,
     rupee,
     scrub,
     sf,
     shop,
+    snowball,
+    soil,
     sr,
+    tree,
+    wonder,
 }
+
+
 
 export interface RawPoolEntry {
     location: string;
