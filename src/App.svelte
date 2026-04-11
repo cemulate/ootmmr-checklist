@@ -2,8 +2,10 @@
   import * as Y from 'yjs';
   import { readableArray, readableMap } from 'svelt-yjs';
   import { WebrtcProvider } from 'y-webrtc';
+  import { TrysteroProvider, type TrysteroRoom } from '@winstonfassett/y-webrtc-trystero';
+  import { joinRoom } from 'trystero';
   import { IndexeddbPersistence } from 'y-indexeddb';
-  import { initializeStructuredChecks } from './util/util';
+  import { initializeStructuredChecks, randomRoomName } from './util/util';
   import CheckGroup from './components/CheckGroup.svelte';
   import CheckItem from './components/CheckItem.svelte';
   import * as T from './data/types';
@@ -14,27 +16,27 @@
 
   // The document will be shared with any WebRTC peers, if connected to a room
   let roomName: string | null = null;
-  let connectionProvider: WebrtcProvider | null = null;
+  let connectionProvider: TrysteroProvider | null = null;
+  let providerSyncStatus: boolean = false;
 
   // Set hash any time roomName changes
   $: window.location.hash = roomName ?? '';
 
   function joinCoopRoom(name?: string) {
-    roomName = name ?? new Date().getTime().toString(36);
-    const signaling = ['https://ootmmr-checklist-signaling.fly.dev/'];
-    connectionProvider = new WebrtcProvider(roomName, ydoc, { signaling });
-  }
+    roomName = name ?? randomRoomName();
 
-  function leaveCoopRoom() {
-    if (window.confirm('Are you sure you want to disconnect? Your progress will be preserved as it is now.')) {
-      connectionProvider?.disconnect();
-      connectionProvider = null;
-      roomName = null;
-    }
+    connectionProvider = new TrysteroProvider(
+      roomName,
+      ydoc,
+      { appId: 'ootmmr-checklist' }
+    );
+
+    providerSyncStatus = false;
+    connectionProvider.on('synced', ({ synced }) => { providerSyncStatus = synced; });
   }
 
   // If the link has a room name, connect to it now
-  if (window.location.hash.length > 0 && /#[a-z0-9]+/.test(window.location.hash)) {
+  if (window.location.hash.length > 0 && /[A-Z0-9]{4,}/.test(window.location.hash)) {
     const name = window.location.hash.slice(1);
     joinCoopRoom(name);
   }
@@ -151,7 +153,13 @@
       <summary>
         <strong class="interactable">Config</strong>
         {#if connectionProvider != null}
-          <span>&nbsp; (Connected to room: <code>{roomName}</code>)</span>
+          <span>&nbsp; Room <code>{roomName}</code></span> 
+          &nbsp;
+          {#if providerSyncStatus}
+            <span>🟢Connected</span>
+          {:else}
+            <span>◯Disconnected</span>
+          {/if}
         {/if}
       </summary>
       <div id="settings-container" class="flex flex-wrap" style="margin-top: 0.8em">
@@ -174,7 +182,7 @@
           {#if connectionProvider == null}
             <form
               class="pure-form"
-              on:submit|preventDefault={e => joinCoopRoom(e.target?.querySelector('#room-code-input').value)}
+              on:submit|preventDefault={e => joinCoopRoom(e.target?.querySelector('#room-code-input').value.toUpperCase())}
             >
               <fieldset>
                 <input
@@ -182,8 +190,9 @@
                   class=""
                   type="text"
                   placeholder="Room code"
+                  autocomplete="off"
                   required
-                  pattern={`[a-z0-9]{8,}`}
+                  pattern={`[a-zA-Z0-9]{4,}`}
                 />
                 <button type="submit" class="bg-primary pure-button">Join room</button>
               </fieldset>
@@ -200,7 +209,8 @@
                   class="bg-primary pure-button"
                   on:click|preventDefault={e => window.navigator.clipboard.writeText(window.location.href)}>Copy Room Link</button
                 >
-                <button class="bg-primary pure-button" on:click={leaveCoopRoom}>Disconnect</button>
+                <!-- TODO: The concept of "disconnecting" is tricky in this context; this'll do for now. -->
+                <a class="bg-primary pure-button" href="/">Disconnect</a>
               </fieldset>
             </form>
           {/if}
@@ -273,5 +283,11 @@
     @media screen and (min-width: 35.5em) {
       margin-right: 1.6em;
     }
+  }
+
+  #room-code-input {
+    text-transform: uppercase;
+    font-family: monospace;
+    font-size: 1.1em;
   }
 </style>

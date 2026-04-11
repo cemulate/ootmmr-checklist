@@ -16,6 +16,7 @@
         "@sveltejs/vite-plugin-svelte": "^3.0.2",
         "@tsconfig/svelte": "^5.0.4",
         "@types/node": "^20.12.2",
+        "@winstonfassett/y-webrtc-trystero": "^0.1.0-beta.3",
         "csv-parse": "^5.5.5",
         "gh-pages": "^6.1.1",
         "plausible-tracker": "^0.3.9",
@@ -26,6 +27,7 @@
         "svelt-yjs": "^1.1.0",
         "svelte": "^4.2.12",
         "svelte-check": "^3.6.8",
+        "trystero": "^0.23.0",
         "tslib": "^2.6.2",
         "tsx": "^4.7.1",
         "typescript": "^5.4.3",
@@ -33,6 +35,6 @@
         "y-indexeddb": "^9.0.12",
         "y-webrtc": "^10.3.0",
         "yaml": "^2.4.1",
-        "yjs": "^13.6.14"
+        "yjs": "^13.6.30"
     }
 }
